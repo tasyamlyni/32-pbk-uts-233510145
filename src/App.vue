@@ -1,11 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-const tasks = ref([
-  { id: 1, description: 'Task 1', completed: false },
-  { id: 2, description: 'Task 2', completed: true },
-  { id: 3, description: 'Task 3', completed: false },
-]);
+const tasks = ref([]);
 
 const newTask = ref('');
 
@@ -20,21 +16,24 @@ const addTask = () => {
   }
 };
 
+const toggleTaskCompletion = (task) => {
+  task.completed == !task.completed;
+}
+
 </script>
 
 <template>
   <div>
     <input type="text" v-model="newTask" @keyup.enter="addTask" placeholder="Add a new task" />
     <button @click="addTask">Add Task</button>
-    
+
     <ul>
       <li v-for="task in tasks" :key="task.id">
-        {{  task.description }} - {{ task.completed ? 'Completed' : 'Not Completed' }}
+        <input type="checkbox" @change="toggleTaskCompletion(task)" v-model="task.completed" />
+        {{ task.description }} - {{ task.completed ? 'Completed' : 'Not Completed' }}
       </li>
     </ul>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
