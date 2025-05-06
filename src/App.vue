@@ -20,6 +20,10 @@ const toggleTaskCompletion = (task) => {
   task.completed == !task.completed;
 }
 
+const deleteTask = (task) => {
+  tasks.value = tasks.value.filter((t) => t.id !== task.id);
+}
+
 </script>
 
 <template>
@@ -30,7 +34,8 @@ const toggleTaskCompletion = (task) => {
     <ul>
       <li v-for="task in tasks" :key="task.id">
         <input type="checkbox" @change="toggleTaskCompletion(task)" v-model="task.completed" />
-        {{ task.description }} - {{ task.completed ? 'Completed' : 'Not Completed' }}
+        {{ task.description }}
+        <button @click="deleteTask(task)">Delete</button>
       </li>
     </ul>
   </div>
